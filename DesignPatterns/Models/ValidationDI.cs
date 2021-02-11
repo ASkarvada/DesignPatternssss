@@ -8,7 +8,7 @@ using DesignPatterns.Interfaces;
 
 namespace DesignPatterns.Models
 {
-    class ValidationDI
+    public class ValidationDI
     {
         readonly IIntValidator vekValidator;
         readonly IStringValidator nameValidator;
@@ -23,7 +23,7 @@ namespace DesignPatterns.Models
             nameValidator = sv; vekValidator = iv; surnameValidator = sv2; dateTimeValidator = dv;
         }
 
-        public ValidationDI() { vekValidator = null; surnameValidator = null; dateTimeValidator = null; }
+        public ValidationDI() { vekValidator = null; nameValidator = null; surnameValidator = null; dateTimeValidator = null; }
 
         public void DBInput(string name, string surname, string age, DateTime date)
         {

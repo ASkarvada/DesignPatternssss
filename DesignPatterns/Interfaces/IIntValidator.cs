@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DesignPatterns.Interfaces
 {
-    interface IIntValidator
+    public interface IIntValidator
     {
         bool IsValid(string s, out int retVal);
     }

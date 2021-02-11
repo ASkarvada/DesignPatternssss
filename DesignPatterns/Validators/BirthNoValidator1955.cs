@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DesignPatterns.Interfaces;
 
 namespace DesignPatterns.Validators
 {
-    class BirthNoValidator1955
+    class BirthNoValidator1955 : IDateTimeValidator
     {
-        public bool isValid(DateTime d, out string rc)
+        public bool IsValid(DateTime d, out string rc)
         {
             rc = "000000/000";
             Random ran = new Random();

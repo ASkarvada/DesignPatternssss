@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DesignPatterns.Interfaces
 {
-    interface IDateTimeValidator
+    public interface IDateTimeValidator
     {
         bool IsValid(DateTime d, out string rc);
     }

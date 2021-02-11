@@ -8,7 +8,7 @@ using System.ComponentModel;
 using GalaSoft.MvvmLight.Command;
 using System.Windows.Input;
 using System.Diagnostics;
-using OrderedDictionary;
+using DesignPatterns.Validators;
 
 namespace DesignPatterns.ViewModels
 {
@@ -17,24 +17,51 @@ namespace DesignPatterns.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         public AddUserViewModel()
         {
-            if (Singleton.Database.people.Count == 0)
+            
+        }
+
+        
+        private string name;
+        public string Name
+        {
+            get { return name; }
+            set
             {
-                User = "";
-            }
-            else
-            {
-                User = Singleton.Database.people[people.Keys.Max()];
+                name = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name)));
             }
         }
 
-        private string user;
-        public string User
+        private string surname;
+        public string Surname
         {
-            get { return user; }
+            get { return surname; }
             set
             {
-                user = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(User)));
+                surname = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Surname)));
+            }
+        }
+
+        private string birthNo;
+        public string BirthNo
+        {
+            get { return birthNo; }
+            set
+            {
+                birthNo = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BirthNo)));
+            }
+        }
+
+        private DateTime date;
+        public DateTime Date
+        {
+            get { return date; }
+            set
+            {
+                date = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Date)));
             }
         }
 
@@ -49,11 +76,25 @@ namespace DesignPatterns.ViewModels
                     // RelayCommand je definovaný v MVVMLight
                     _sendCommand = new RelayCommand(
                         () => {
-                            // Tady je práce, která se má odmakat, když se spustí command
-                            Debug.WriteLine(User);
+                            ValidationDI u;
+
+                            if(Date.Year < 1954)
+                            {
+                                u = new ValidationDI(new NameValidator(), new NameValidator(), new AgeValidator(), new BirthNoValidator1954());
+                            }
+                            else if(Date.Year > 1955)
+                            {
+                                u = new ValidationDI(new NameValidator(), new NameValidator(), new AgeValidator(), new BirthNoValidator1955());
+                            }
+                            else
+                            {
+                                u = new ValidationDI(new NameValidator(), new NameValidator(), new AgeValidator(), new BirthNoValidator1955());
+                            }
 
                             // Uložení do modelu
-                            Singleton.Database.people.Add(;
+                            u.DBInput(Name, Surname, BirthNo, Date);
+                            Singleton.Database.people.Add(u.BirthNo, u);
+                            Debug.WriteLine(u);
                         });
                 }
                 return _sendCommand;

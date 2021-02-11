@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DesignPatterns.Interfaces
 {
-    interface IStringValidator
+    public interface IStringValidator
     {
         bool IsValid(string s);
     }
