@@ -8,6 +8,6 @@ namespace DesignPatterns.Interfaces
 {
     public interface IDateTimeValidator
     {
-        bool IsValid(DateTime d, out string rc);
+        bool IsValid(DateTime d);
     }
 }

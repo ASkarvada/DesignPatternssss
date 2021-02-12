@@ -80,15 +80,15 @@ namespace DesignPatterns.ViewModels
 
                             if(Date.Year < 1954)
                             {
-                                u = new ValidationDI(new NameValidator(), new NameValidator(), new AgeValidator(), new BirthNoValidator1954());
+                                u = new ValidationDI(new NameValidator(), new NameValidator(), new BirthNoValidator1954(), new DateBirthValidator());
                             }
                             else if(Date.Year > 1955)
                             {
-                                u = new ValidationDI(new NameValidator(), new NameValidator(), new AgeValidator(), new BirthNoValidator1955());
+                                u = new ValidationDI(new NameValidator(), new NameValidator(), new BirthNoValidator1955(), new DateBirthValidator());
                             }
                             else
                             {
-                                u = new ValidationDI(new NameValidator(), new NameValidator(), new AgeValidator(), new BirthNoValidator1955());
+                                u = new ValidationDI(new NameValidator(), new NameValidator(), new BirthNoValidator1954(), new DateBirthValidator());
                             }
 
                             // Uložení do modelu

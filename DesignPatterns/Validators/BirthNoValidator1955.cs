@@ -7,22 +7,36 @@ using DesignPatterns.Interfaces;
 
 namespace DesignPatterns.Validators
 {
-    class BirthNoValidator1955 : IDateTimeValidator
+    class BirthNoValidator1955 : IStringValidator
     {
-        public bool IsValid(DateTime d, out string rc)
+        public bool IsValid(string s)
         {
-            rc = "000000/000";
-            Random ran = new Random();
+            char[] c = s.ToCharArray();
 
-            if (d.Year > 1955)
+            for (int i = 0; i < 6; i++)
             {
-                rc = $"{d.ToString("yyMMdd")}/{ran.Next(10)}{ran.Next(10)}{ran.Next(10)}{ran.Next(10)}";
-                return true;
+                bool b = false;
+                for (int j = 0; j < 9; j++)
+                {
+                    if (c[i] == Convert.ToChar(j)) b = true;
+                }
+                if (!b) return false;
             }
-            else
+
+            if (c[6] != '/') return false;
+
+            for (int i = 7; i < 11; i++)
             {
-                return false;
+                bool b = false;
+                for (int j = 0; j < 9; j++)
+                {
+                    if (c[i] == Convert.ToChar(j)) b = true;
+                }
+                if (!b) return false;
             }
+            return true;
+
+
         }
     }
 }

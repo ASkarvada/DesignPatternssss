@@ -80,7 +80,7 @@
     <Compile Include="Interfaces\IDateTimeValidator.cs" />
     <Compile Include="Interfaces\IIntValidator.cs" />
     <Compile Include="Interfaces\IStringValidator.cs" />
-    <Compile Include="Validators\AgeValidator.cs" />
+    <Compile Include="Validators\DateBirthValidator.cs" />
     <Compile Include="Validators\BirthNoValidator1954.cs" />
     <Compile Include="Validators\BirthNoValidator1955.cs" />
     <Compile Include="Validators\NameValidator.cs" />

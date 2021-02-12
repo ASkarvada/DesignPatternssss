@@ -10,25 +10,26 @@ namespace DesignPatterns.Models
 {
     public class ValidationDI
     {
-        readonly IIntValidator vekValidator;
+        readonly IDateTimeValidator dateTimeValidator;
         readonly IStringValidator nameValidator;
         readonly IStringValidator surnameValidator;
-        readonly IDateTimeValidator dateTimeValidator;
+        readonly IStringValidator birthValidator;
+
         public string Name { get; set; }
         public string Surname { get; set; }
         public string BirthNo { get; set; }
-        public int Age { get; set; }
-        public ValidationDI(IStringValidator sv, IStringValidator sv2, IIntValidator iv, IDateTimeValidator dv)
+        public DateTime Date { get; set; }
+        public ValidationDI(IStringValidator iname, IStringValidator isurname, IStringValidator ibirthNo, IDateTimeValidator idate)
         {
-            nameValidator = sv; vekValidator = iv; surnameValidator = sv2; dateTimeValidator = dv;
+            nameValidator = iname; birthValidator = ibirthNo; surnameValidator = isurname; dateTimeValidator = idate;
         }
 
-        public ValidationDI() { vekValidator = null; nameValidator = null; surnameValidator = null; dateTimeValidator = null; }
+        public ValidationDI() { birthValidator = null; nameValidator = null; surnameValidator = null; dateTimeValidator = null; }
 
-        public void DBInput(string name, string surname, string age, DateTime date)
+        public void DBInput(string name, string surname, string birthNo, DateTime date)
         {
             bool nameOK;
-            bool ageOK;
+            bool dateOK;
             bool birthNoOK;
             bool surnameOK;
 
@@ -54,25 +55,25 @@ namespace DesignPatterns.Models
 
             do
             {
-                if (string.IsNullOrEmpty(age)) return;
-                if (ageOK = vekValidator.IsValid(age, out int vek))
+                if (string.IsNullOrEmpty(birthNo)) return;
+                if (birthNoOK = birthValidator.IsValid(birthNo))
                 {
-                    this.Age = vek;
+                    this.BirthNo = birthNo;
                 }
-            } while (ageOK == false);
+            } while (birthNoOK == false);
 
             do
             {
-                if (birthNoOK = dateTimeValidator.IsValid(date, out string rc))
+                if (dateOK = dateTimeValidator.IsValid(date))
                 {
-                    this.BirthNo = rc;
+                    this.Date = date;
                 }
-            } while (birthNoOK == false);
+            } while (dateOK == false);
         }
 
         public override string ToString()
         {
-            return $"{Name}:{Surname}:{Age}:{BirthNo}";
+            return $"{Name}:{Surname}:{Date}:{BirthNo}";
         }
 
     }
